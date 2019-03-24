@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.28307.168
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "webapi", "webapi\webapi.csproj", "{5109737C-BE86-4409-85D7-6D46979D846C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlayersDataAccess", "PlayersDataAccess\PlayersDataAccess.csproj", "{F95C476F-B4B7-474B-AF84-CE86EE7CD60B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "DataAccess\DataAccess.csproj", "{5B9F0798-494F-4322-BEE2-7433BAF14816}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{5109737C-BE86-4409-85D7-6D46979D846C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5109737C-BE86-4409-85D7-6D46979D846C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5109737C-BE86-4409-85D7-6D46979D846C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F95C476F-B4B7-474B-AF84-CE86EE7CD60B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F95C476F-B4B7-474B-AF84-CE86EE7CD60B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F95C476F-B4B7-474B-AF84-CE86EE7CD60B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F95C476F-B4B7-474B-AF84-CE86EE7CD60B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5B9F0798-494F-4322-BEE2-7433BAF14816}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B9F0798-494F-4322-BEE2-7433BAF14816}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B9F0798-494F-4322-BEE2-7433BAF14816}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B9F0798-494F-4322-BEE2-7433BAF14816}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

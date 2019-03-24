@@ -88,6 +88,6 @@ C:\Users\devir\source\repos\webapi\webapi\obj\Debug\webapi.csproj.CoreCompileInp
 C:\Users\devir\source\repos\webapi\webapi\obj\Debug\webapi.csproj.CopyComplete
 C:\Users\devir\source\repos\webapi\webapi\obj\Debug\webapi.dll
 C:\Users\devir\source\repos\webapi\webapi\obj\Debug\webapi.pdb
-C:\Users\devir\source\repos\webapi\webapi\bin\PlayersDataAccess.dll
-C:\Users\devir\source\repos\webapi\webapi\bin\PlayersDataAccess.pdb
-C:\Users\devir\source\repos\webapi\webapi\bin\PlayersDataAccess.dll.config
+C:\Users\devir\source\repos\webapi\webapi\bin\DataAccess.dll
+C:\Users\devir\source\repos\webapi\webapi\bin\DataAccess.pdb
+C:\Users\devir\source\repos\webapi\webapi\bin\DataAccess.dll.config

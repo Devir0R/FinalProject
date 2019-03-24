@@ -1,10 +1,11 @@
-﻿using PlayersDataAccess;
+﻿using DataAccess;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using webapi.Logic_Layer;
 
 namespace webapi.Controllers
 {
@@ -12,23 +13,16 @@ namespace webapi.Controllers
     {
 
         public static readonly string NOT_FOUND_MSG = "Player with id = {0} not found";
+        private ILogic Logic = new Logic();
 
         [HttpGet]
-        public HttpResponseMessage Get(string search="")
+        public HttpResponseMessage Get(string keyword="",string club  = "",int ageup=120,int agedown=0,string nationality="")
         {
-            using (projDBEntities entities = new projDBEntities())
-            {
-                List<Players> ret = new List<Players>();
-                foreach(Players p in entities.Players)
-                {
-                    string fullName = (p.name + "-" + p.last_name).ToLower();
-                    if (fullName.Contains(search.ToLower()))
-                    {
-                        ret.Add(ClonePlayers(p));
-                    }
-                }
-                return Request.CreateResponse(HttpStatusCode.OK,ret);
-            }
+            string fullName = keyword.ToLower();
+            string clubName = club.ToLower();
+
+            List<Players> ret = Logic.Search(fullName,clubName,ageup,agedown,nationality);
+            return Request.CreateResponse(HttpStatusCode.OK, ret);
         }
 
         [HttpGet]
@@ -36,16 +30,15 @@ namespace webapi.Controllers
         {
             using (projDBEntities entities = new projDBEntities())
             {
-                Players obj = entities.Players.FirstOrDefault(e => e.player_Id == Id);
+                Players obj = Logic.GetPlayerByID(Id);
                 if (obj != null)
                 {
-                    return Request.CreateResponse(HttpStatusCode.OK, ClonePlayers( obj));
+                    return Request.CreateResponse(HttpStatusCode.OK,obj);
                 }
                 else
                 {
                     return Request.CreateResponse(HttpStatusCode.NotFound, String.Format(NOT_FOUND_MSG,obj));
                 }
-                //return new Players(obj);
             }
         }
 
@@ -111,7 +104,6 @@ namespace webapi.Controllers
         public void Update(Players e,Players obj)
         {
             e.name = obj.name;
-            e.last_name = obj.last_name;
             e.club = obj.club;
             e.nationality = obj.nationality;
             e.in_game = obj.in_game;
@@ -124,13 +116,17 @@ namespace webapi.Controllers
             {
                 player_Id = obj.player_Id,
                 name = obj.name.Trim(),
-                last_name = obj.last_name.Trim(),
                 club = obj.club.Trim(),
                 nationality = obj.nationality.Trim(),
                 in_game = obj.in_game,
-                position = obj.position.Trim(),
-                Users = obj.Users,
-                CompetitionStatistics = obj.CompetitionStatistics
+                position = obj.position,
+                //Users = obj.Users,
+                suspended = obj.suspended,
+                injured = obj.injured,
+                CompetitionStatistics = obj.CompetitionStatistics,
+                //Position1 = obj.Position1,
+                date_of_birth = obj.date_of_birth,
+                jerseyNum = obj.jerseyNum
             };
             return ret;
         }
