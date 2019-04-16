@@ -31,6 +31,7 @@ namespace DataAccess
         public bool injured { get; set; }
         public bool suspended { get; set; }
         public bool in_game { get; set; }
+        public string pic { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CompetitionStatistics> CompetitionStatistics { get; set; }

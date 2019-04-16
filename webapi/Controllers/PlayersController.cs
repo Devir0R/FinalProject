@@ -16,12 +16,28 @@ namespace webapi.Controllers
         private ILogic Logic = new Logic();
 
         [HttpGet]
-        public HttpResponseMessage Get(string keyword="",string club  = "",int ageup=120,int agedown=0,string nationality="")
+        public HttpResponseMessage Get(string top = "",string keyword = "", string club  = "",int ageup=120,int agedown=0,string nationality="")
         {
-            string fullName = keyword.ToLower();
-            string clubName = club.ToLower();
+            List<Players> ret;
+            if (top == "")
+            {
+                string fullName = keyword.ToLower();
+                string clubName = club.ToLower();
 
-            List<Players> ret = Logic.Search(fullName,clubName,ageup,agedown,nationality);
+                ret = Logic.Search(fullName, clubName, ageup, agedown, nationality);
+                
+            }
+            else
+            {
+                if (Int32.TryParse(top, out int res))
+                {
+                    ret = Logic.GetTopPlayers(res);
+                }
+                else
+                {
+                    return Request.CreateResponse(HttpStatusCode.BadRequest);
+                }
+            }
             return Request.CreateResponse(HttpStatusCode.OK, ret);
         }
 
@@ -42,7 +58,7 @@ namespace webapi.Controllers
             }
         }
 
-        [HttpPost]
+        
         public HttpResponseMessage Post([FromBody] Players value)
         {
             try
@@ -91,12 +107,22 @@ namespace webapi.Controllers
             }
         }
 
-        public void Put(int id,[FromBody]Players player)
+        [HttpPut]
+        public HttpResponseMessage Put(int id,[FromBody]Players player)
         {
-            using (projDBEntities entities = new projDBEntities())
+            try
             {
-                var entity = entities.Players.FirstOrDefault(e=>e.player_Id==id);
-                Update(entity,player);
+                using (projDBEntities entities = new projDBEntities())
+                {
+                    var entity = entities.Players.FirstOrDefault(e => e.player_Id == id);
+                    Update(entity, player);
+                    entities.SaveChanges();
+                    return Request.CreateResponse(HttpStatusCode.OK);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex);
             }
 
         }
@@ -108,27 +134,6 @@ namespace webapi.Controllers
             e.nationality = obj.nationality;
             e.in_game = obj.in_game;
             e.position = obj.position;
-        }
-
-        public Players ClonePlayers(Players obj)
-        {
-            Players ret = new Players
-            {
-                player_Id = obj.player_Id,
-                name = obj.name.Trim(),
-                club = obj.club.Trim(),
-                nationality = obj.nationality.Trim(),
-                in_game = obj.in_game,
-                position = obj.position,
-                //Users = obj.Users,
-                suspended = obj.suspended,
-                injured = obj.injured,
-                CompetitionStatistics = obj.CompetitionStatistics,
-                //Position1 = obj.Position1,
-                date_of_birth = obj.date_of_birth,
-                jerseyNum = obj.jerseyNum
-            };
-            return ret;
         }
 
 

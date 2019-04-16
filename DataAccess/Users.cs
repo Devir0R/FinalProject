@@ -20,7 +20,7 @@ namespace DataAccess
             this.Players = new HashSet<Players>();
         }
     
-        public int User_Id { get; set; }
+        public long User_Id { get; set; }
     
         public virtual NotificationsSettings NotificationsSettings { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

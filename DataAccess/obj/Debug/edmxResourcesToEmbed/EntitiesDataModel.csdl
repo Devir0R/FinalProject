@@ -1,0 +1,141 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="projDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="CompetitionStatistics">
+    <Key>
+      <PropertyRef Name="Player_id" />
+      <PropertyRef Name="Competition_name" />
+    </Key>
+    <Property Name="Player_id" Type="Int32" Nullable="false" />
+    <Property Name="Red_cards" Type="Int32" Nullable="false" />
+    <Property Name="Yellow_Cards" Type="Int32" Nullable="false" />
+    <Property Name="Goals" Type="Int32" Nullable="false" />
+    <Property Name="Assists" Type="Int32" Nullable="false" />
+    <Property Name="Offsides" Type="Int32" Nullable="false" />
+    <Property Name="Competition_name" Type="String" MaxLength="20" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="Injury" Type="Boolean" />
+    <Property Name="Suspension" Type="Boolean" />
+    <NavigationProperty Name="Players" Relationship="Self.FK__Competiti__Playe__1332DBDC" FromRole="CompetitionStatistics" ToRole="Players" />
+  </EntityType>
+  <EntityType Name="Game">
+    <Key>
+      <PropertyRef Name="Date" />
+    </Key>
+    <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Home" Type="String" MaxLength="50" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="Away" Type="String" MaxLength="50" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="HomeGoals" Type="Int32" Nullable="false" />
+    <Property Name="AwayGoals" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="NotificationsSettings">
+    <Key>
+      <PropertyRef Name="User_id" />
+    </Key>
+    <Property Name="User_id" Type="Int64" Nullable="false" />
+    <Property Name="Red_cards" Type="Boolean" />
+    <Property Name="Yellow_cards" Type="Boolean" />
+    <Property Name="Assists" Type="Boolean" />
+    <Property Name="Goals" Type="Boolean" />
+    <Property Name="Clean_sheets" Type="Boolean" />
+    <NavigationProperty Name="Users" Relationship="Self.FK__Notificat__User___44CA3770" FromRole="NotificationsSettings" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="Players">
+    <Key>
+      <PropertyRef Name="player_Id" />
+    </Key>
+    <Property Name="player_Id" Type="Int32" Nullable="false" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="club" Type="String" MaxLength="20" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="jerseyNum" Type="Int32" />
+    <Property Name="nationality" Type="String" MaxLength="20" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="position" Type="Int32" />
+    <Property Name="date_of_birth" Type="DateTime" Precision="0" />
+    <Property Name="injured" Type="Boolean" Nullable="false" />
+    <Property Name="suspended" Type="Boolean" Nullable="false" />
+    <Property Name="in_game" Type="Boolean" Nullable="false" />
+    <Property Name="pic" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="CompetitionStatistics" Relationship="Self.FK__Competiti__Playe__1332DBDC" FromRole="Players" ToRole="CompetitionStatistics" />
+    <NavigationProperty Name="Position1" Relationship="Self.FK__Players__positio__160F4887" FromRole="Players" ToRole="Position" />
+    <NavigationProperty Name="Users" Relationship="Self.Subscribers" FromRole="Players" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="Position">
+    <Key>
+      <PropertyRef Name="position_num" />
+    </Key>
+    <Property Name="position_num" Type="Int32" Nullable="false" />
+    <Property Name="FormationPosition" Type="String" MaxLength="15" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="Position1" Type="String" MaxLength="15" FixedLength="true" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Players" Relationship="Self.FK__Players__positio__160F4887" FromRole="Position" ToRole="Players" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="User_Id" />
+    </Key>
+    <Property Name="User_Id" Type="Int64" Nullable="false" />
+    <NavigationProperty Name="NotificationsSettings" Relationship="Self.FK__Notificat__User___44CA3770" FromRole="Users" ToRole="NotificationsSettings" />
+    <NavigationProperty Name="Players" Relationship="Self.Subscribers" FromRole="Users" ToRole="Players" />
+  </EntityType>
+  <Association Name="FK__Competiti__Playe__1332DBDC">
+    <End Role="Players" Type="Self.Players" Multiplicity="1" />
+    <End Role="CompetitionStatistics" Type="Self.CompetitionStatistics" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Players">
+        <PropertyRef Name="player_Id" />
+      </Principal>
+      <Dependent Role="CompetitionStatistics">
+        <PropertyRef Name="Player_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Notificat__User___44CA3770">
+    <End Role="Users" Type="Self.Users" Multiplicity="1" />
+    <End Role="NotificationsSettings" Type="Self.NotificationsSettings" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="User_Id" />
+      </Principal>
+      <Dependent Role="NotificationsSettings">
+        <PropertyRef Name="User_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Players__positio__160F4887">
+    <End Role="Position" Type="Self.Position" Multiplicity="0..1" />
+    <End Role="Players" Type="Self.Players" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Position">
+        <PropertyRef Name="position_num" />
+      </Principal>
+      <Dependent Role="Players">
+        <PropertyRef Name="position" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Subscribers">
+    <End Role="Players" Type="Self.Players" Multiplicity="*" />
+    <End Role="Users" Type="Self.Users" Multiplicity="*" />
+  </Association>
+  <EntityContainer Name="projDBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="CompetitionStatistics" EntityType="Self.CompetitionStatistics" />
+    <EntitySet Name="Game" EntityType="Self.Game" />
+    <EntitySet Name="NotificationsSettings" EntityType="Self.NotificationsSettings" />
+    <EntitySet Name="Players" EntityType="Self.Players" />
+    <EntitySet Name="Position" EntityType="Self.Position" />
+    <EntitySet Name="Users" EntityType="Self.Users" />
+    <AssociationSet Name="FK__Competiti__Playe__1332DBDC" Association="Self.FK__Competiti__Playe__1332DBDC">
+      <End Role="Players" EntitySet="Players" />
+      <End Role="CompetitionStatistics" EntitySet="CompetitionStatistics" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Notificat__User___44CA3770" Association="Self.FK__Notificat__User___44CA3770">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="NotificationsSettings" EntitySet="NotificationsSettings" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Players__positio__160F4887" Association="Self.FK__Players__positio__160F4887">
+      <End Role="Position" EntitySet="Position" />
+      <End Role="Players" EntitySet="Players" />
+    </AssociationSet>
+    <AssociationSet Name="Subscribers" Association="Self.Subscribers">
+      <End Role="Players" EntitySet="Players" />
+      <End Role="Users" EntitySet="Users" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

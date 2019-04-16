@@ -14,7 +14,7 @@ namespace DataAccess
     
     public partial class NotificationsSettings
     {
-        public int User_id { get; set; }
+        public long User_id { get; set; }
         public Nullable<bool> Red_cards { get; set; }
         public Nullable<bool> Yellow_cards { get; set; }
         public Nullable<bool> Assists { get; set; }
