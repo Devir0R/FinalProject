@@ -28,5 +28,27 @@ namespace webapi.Data_Access_Layer
                 
             }
         }
+
+        internal bool UnSubscribe(long u_id, int playerID)
+        {
+            using (projDBEntities entities = new projDBEntities())
+            {
+                Users user = entities.Users.FirstOrDefault(e => e.User_Id == u_id);
+                Players player = entities.Players.FirstOrDefault(e => e.player_Id == playerID);
+                if (user != null && player != null)
+                {
+                    user.Players.Remove(player);
+                    player.Users.Remove(user);
+                    entities.SaveChanges();
+                    return true;
+
+                }
+                else
+                {
+                    return false;
+                }
+
+            }
+        }
     }
 }

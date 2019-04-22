@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{D95C4CF0-48F6-47DA-B47D-25CF161C4EF9}</ProjectGuid>
+    <ProjectGuid>{A8CD43C6-BA30-4385-B8B3-EF3E9721FB23}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>DataAccess</RootNamespace>
@@ -51,63 +51,63 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CompetitionStatistics.cs">
-      <DependentUpon>EntitiesDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="EntitiesDataModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>EntitiesDataModel.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="EntitiesDataModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>EntitiesDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="EntitiesDataModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>EntitiesDataModel.edmx</DependentUpon>
+      <DependentUpon>PlayersDataAccess.tt</DependentUpon>
     </Compile>
     <Compile Include="Game.cs">
-      <DependentUpon>EntitiesDataModel.tt</DependentUpon>
+      <DependentUpon>PlayersDataAccess.tt</DependentUpon>
     </Compile>
     <Compile Include="NotificationsSettings.cs">
-      <DependentUpon>EntitiesDataModel.tt</DependentUpon>
+      <DependentUpon>PlayersDataAccess.tt</DependentUpon>
     </Compile>
     <Compile Include="Players.cs">
-      <DependentUpon>EntitiesDataModel.tt</DependentUpon>
+      <DependentUpon>PlayersDataAccess.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PlayersDataAccess.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PlayersDataAccess.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PlayersDataAccess.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PlayersDataAccess.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PlayersDataAccess.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PlayersDataAccess.edmx</DependentUpon>
     </Compile>
     <Compile Include="Position.cs">
-      <DependentUpon>EntitiesDataModel.tt</DependentUpon>
+      <DependentUpon>PlayersDataAccess.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Users.cs">
-      <DependentUpon>EntitiesDataModel.tt</DependentUpon>
+      <DependentUpon>PlayersDataAccess.tt</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EntityDeploy Include="EntitiesDataModel.edmx">
+    <EntityDeploy Include="PlayersDataAccess.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>EntitiesDataModel.Designer.cs</LastGenOutput>
+      <LastGenOutput>PlayersDataAccess.Designer.cs</LastGenOutput>
     </EntityDeploy>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />
-    <None Include="EntitiesDataModel.edmx.diagram">
-      <DependentUpon>EntitiesDataModel.edmx</DependentUpon>
-    </None>
     <None Include="packages.config" />
+    <None Include="PlayersDataAccess.edmx.diagram">
+      <DependentUpon>PlayersDataAccess.edmx</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="EntitiesDataModel.Context.tt">
+    <Content Include="PlayersDataAccess.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>EntitiesDataModel.Context.cs</LastGenOutput>
-      <DependentUpon>EntitiesDataModel.edmx</DependentUpon>
+      <LastGenOutput>PlayersDataAccess.Context.cs</LastGenOutput>
+      <DependentUpon>PlayersDataAccess.edmx</DependentUpon>
     </Content>
-    <Content Include="EntitiesDataModel.tt">
+    <Content Include="PlayersDataAccess.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>EntitiesDataModel.edmx</DependentUpon>
-      <LastGenOutput>EntitiesDataModel.cs</LastGenOutput>
+      <DependentUpon>PlayersDataAccess.edmx</DependentUpon>
+      <LastGenOutput>PlayersDataAccess.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <ItemGroup>

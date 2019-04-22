@@ -54,7 +54,6 @@ namespace webapi.Data_Access_Layer
                 Players = player,
                 Assists = 0,
                 Goals = 0,
-                Injury = false,
                 Offsides = 0,
                 Player_id = player.player_Id,
                 Red_cards = 0,

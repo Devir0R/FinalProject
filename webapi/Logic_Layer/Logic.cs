@@ -44,19 +44,21 @@ namespace webapi.Logic_Layer
             return DA.GetUserByID(id);
         }
 
-        public void UpdateSetting(int id, int red, int yellow, int assists, int goals, int sheets)
+        public void UpdateSetting(string deviceID, int red, int yellow, int assists, int goals, int sheets, int apps)
         {
             bool red_flag = red == 1;
             bool yellow_flag = yellow == 1;
             bool assists_flag = assists == 1;
             bool goals_flag = goals == 1;
             bool sheets_flag = sheets == 1;
-            DA.UpdateSetting(id,
+            bool appearances_flage = apps == 1;
+            DA.UpdateSetting(Utilities.Utilities.StringDeviceIDToLong(deviceID),
                 red_flag,
                 yellow_flag,
                 assists_flag,
                 goals_flag,
-                sheets_flag);
+                sheets_flag,
+                appearances_flage);
         }
 
         public string UpdatePlayers(CPlayerUpdate val)
@@ -126,6 +128,17 @@ namespace webapi.Logic_Layer
         {
             long u_id = Utilities.Utilities.StringDeviceIDToLong(deviceID);
             return DA.GetUserPlayers(u_id);
+        }
+
+        public bool UnSubscribe(string deviceID, int playerID)
+        {
+            long u_id = Utilities.Utilities.StringDeviceIDToLong(deviceID);
+            return DA.UnSubscribe(u_id, playerID);
+        }
+
+        public NotificationsSettings GetNotificationsSettingByID(string deviceID)
+        {
+            return DA.GetNotificationsSettingByID( deviceID);
         }
     }
 }

@@ -35,9 +35,9 @@ namespace webapi.Controllers
         public HttpResponseMessage Get(int Id)
         {
             Users obj = Logic.GetUserByID(Id);
-            if (obj != null)
+            if (obj == null)
             {
-                return Request.CreateResponse(HttpStatusCode.OK, obj);
+                return Request.CreateResponse(HttpStatusCode.OK, new UserFromNW() { deviceID = "55" });
             }
             else
             {

@@ -20,6 +20,7 @@ namespace DataAccess
         public Nullable<bool> Assists { get; set; }
         public Nullable<bool> Goals { get; set; }
         public Nullable<bool> Clean_sheets { get; set; }
+        public Nullable<bool> Appearance { get; set; }
     
         public virtual Users Users { get; set; }
     }

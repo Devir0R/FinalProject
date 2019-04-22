@@ -5844,7 +5844,6 @@
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.1": [
-      "DataAccess >= 1.0.0",
       "MSTest.TestAdapter >= 1.3.2",
       "MSTest.TestFramework >= 1.3.2",
       "Microsoft.NET.Test.Sdk >= 15.9.0",
@@ -5882,9 +5881,6 @@
       "frameworks": {
         "netcoreapp2.1": {
           "projectReferences": {
-            "C:\\Users\\devir\\source\\repos\\webapi\\DataAccess\\DataAccess.csproj": {
-              "projectPath": "C:\\Users\\devir\\source\\repos\\webapi\\DataAccess\\DataAccess.csproj"
-            },
             "C:\\Users\\devir\\source\\repos\\webapi\\webapi\\webapi.csproj": {
               "projectPath": "C:\\Users\\devir\\source\\repos\\webapi\\webapi\\webapi.csproj"
             }

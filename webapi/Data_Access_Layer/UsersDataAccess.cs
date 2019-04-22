@@ -17,9 +17,10 @@ namespace webapi.Data_Access_Layer
                     if (entities.Users.FirstOrDefault(e => e.User_Id == user.User_Id) == null)
                     {
                         entities.Users.Add(user);
+                        entities.NotificationsSettings.Add(user.NotificationsSettings);
                         entities.SaveChanges();
+                        
                     }
-
                 }
             }
             catch (Exception)
@@ -71,6 +72,7 @@ namespace webapi.Data_Access_Layer
                 }
             };
             user.NotificationsSettings.Users = user;
+            
             return AddUser(user);
         }
 
@@ -84,7 +86,7 @@ namespace webapi.Data_Access_Layer
                 {
                     foreach(Players p in user.Players)
                     {
-                        ret.Add(Utilities.Utilities.ClonePlayers(p));
+                        ret.Add(Utilities.Utilities.ClonePlayersAcyclic(p));
                     }
                 }
             }

@@ -56,6 +56,11 @@ namespace webapi.Data_Access_Layer
                 date_of_birth = obj.date_of_birth,
                 jerseyNum = obj.jerseyNum
             };
+            foreach(CompetitionStatistics cs in ret.CompetitionStatistics)
+            {
+                cs.Players = null;
+                
+            }
             ret.Position1.Players.Clear();
             ret.Position1.Position1 = ret.Position1.Position1.Trim();
             ret.Position1.FormationPosition = ret.Position1.FormationPosition.Trim();

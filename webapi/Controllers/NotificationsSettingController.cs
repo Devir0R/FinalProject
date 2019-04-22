@@ -18,12 +18,17 @@ namespace webapi.Controllers
             return Request.CreateResponse(HttpStatusCode.Accepted, "controlled exists!");
         }
 
+        public HttpResponseMessage Get(string deviceID)
+        {
+            return Request.CreateResponse(HttpStatusCode.Accepted, Logic.GetNotificationsSettingByID(deviceID));
+        }
+
         [HttpPut]
-        public HttpResponseMessage Put(int id, int red = 0, int yellow = 0, int assists = 0, int goals = 0, int sheets = 0)
+        public HttpResponseMessage Put(string deviceID, int red = 0, int yellow = 0, int assists = 0, int goals = 0, int sheets = 0,int apps=0)
         {
             try
             {
-                Logic.UpdateSetting(id, red, yellow, assists, goals, sheets);
+                Logic.UpdateSetting(deviceID, red, yellow, assists, goals, sheets,apps);
                 return Request.CreateResponse(HttpStatusCode.OK);
             }
             catch (Exception ex)

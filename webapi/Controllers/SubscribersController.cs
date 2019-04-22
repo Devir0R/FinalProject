@@ -22,11 +22,27 @@ namespace webapi.Controllers
         }
 
         [HttpPost]
-        public HttpResponseMessage Post(SubscriberFromNW user)
+        public HttpResponseMessage Post(SubscriberFromNW sub)
         {
-            string deviceID = user.deviceID;
-            int playerID = user.playerID;
+            string deviceID = sub.deviceID;
+            int playerID = sub.playerID;
             bool success = Logic.Subscribe(deviceID, playerID);
+            if (success)
+            {
+                return Request.CreateResponse(HttpStatusCode.Accepted, "Added");
+            }
+            else
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, "Failed");
+            }
+        }
+
+        [HttpDelete]
+        public HttpResponseMessage Delete(SubscriberFromNW sub)
+        {
+            string deviceID = sub.deviceID;
+            int playerID = sub.playerID;
+            bool success = Logic.UnSubscribe(deviceID, playerID);
             if (success)
             {
                 return Request.CreateResponse(HttpStatusCode.Accepted, "Added");

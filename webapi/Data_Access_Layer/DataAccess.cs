@@ -35,9 +35,9 @@ namespace webapi.Data_Access_Layer
             return UsersDA.GetUserByID(id);
         }
 
-        public void UpdateSetting(int id, bool red_flag, bool yellow_flag, bool assists_flag, bool goals_flag, bool sheets_flag)
+        public void UpdateSetting(long id, bool red_flag, bool yellow_flag, bool assists_flag, bool goals_flag, bool sheets_flag,bool appearances_flage)
         {
-            SettingDA.UpdateSetting(id, red_flag, yellow_flag, assists_flag, goals_flag, sheets_flag);
+            SettingDA.UpdateSetting(id, red_flag, yellow_flag, assists_flag, goals_flag, sheets_flag, appearances_flage);
         }
 
         public Players UpdatePlayer(string name,Players newValues)
@@ -68,6 +68,16 @@ namespace webapi.Data_Access_Layer
         public List<Players> GetUserPlayers(long u_id)
         {
             return UsersDA.GetUserPlayers(u_id);
+        }
+
+        public bool UnSubscribe(long u_id, int playerID)
+        {
+            return subsDA.UnSubscribe(u_id, playerID);
+        }
+
+        public NotificationsSettings GetNotificationsSettingByID(string deviceID)
+        {
+            return SettingDA.GetNotificationsSettingByID(deviceID);
         }
     }
 }

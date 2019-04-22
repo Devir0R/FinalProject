@@ -13,7 +13,7 @@ namespace webapi.Utilities
             return Convert.ToInt64(deviceID, 16);
         }
 
-        public static Players ClonePlayers(Players obj)
+        public static Players ClonePlayersAcyclic(Players obj)
         {
             Players ret = new Players
             {
@@ -26,13 +26,34 @@ namespace webapi.Utilities
                 //Users = obj.Users,
                 suspended = obj.suspended,
                 injured = obj.injured,
-                CompetitionStatistics = obj.CompetitionStatistics,
+                CompetitionStatistics = new List<CompetitionStatistics>(),
                 Position1 = obj.Position1,
                 date_of_birth = obj.date_of_birth,
                 jerseyNum = obj.jerseyNum
             };
             ret.Position1.Players.Clear();
-            return ret;
+            foreach(CompetitionStatistics cs in obj.CompetitionStatistics)
+            {
+                ret.CompetitionStatistics.Add(CloneCompetitionStatisticsAcyclic(cs));
+               
+            }
+                return ret;
+        }
+
+        private static CompetitionStatistics CloneCompetitionStatisticsAcyclic(CompetitionStatistics cs)
+        {
+            CompetitionStatistics csClone = new CompetitionStatistics()
+            {
+                Assists = cs.Assists,
+                Competition_name = cs.Competition_name,
+                Goals = cs.Goals,
+                Offsides = cs.Offsides,
+                Player_id = cs.Player_id,
+                Red_cards = cs.Red_cards,
+                Suspension = cs.Suspension,
+                Yellow_Cards = cs.Yellow_Cards
+            };
+            return csClone;
         }
     }
 }

@@ -20,8 +20,9 @@ namespace DataAccess
         public int Goals { get; set; }
         public int Assists { get; set; }
         public int Offsides { get; set; }
+        public int Appearance { get; set; }
         public string Competition_name { get; set; }
-        public Nullable<bool> Injury { get; set; }
+        public Nullable<int> Competition_year { get; set; }
         public Nullable<bool> Suspension { get; set; }
     
         public virtual Players Players { get; set; }
