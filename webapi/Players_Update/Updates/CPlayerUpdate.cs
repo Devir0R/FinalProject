@@ -1,22 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace webapi.Players_Update.Updates
+namespace Updates
 {
-
     public class CPlayerUpdate
     {
-        public CPlayerUpdate(string DataSource)
-        {
-            Statistics = new List<CAthleteStatisticsUpdate>();
-        }
-
-        public CPlayerUpdate()
-        {
-            Statistics = new List<CAthleteStatisticsUpdate>();
-        }
 
         /// <summary>
         /// The player's name
@@ -26,13 +17,18 @@ namespace webapi.Players_Update.Updates
         /// <summary>
         /// The competition's country
         /// </summary>
+        public string Country { get; set; }
 
-        public List<string> Competitions { get; set; }
+        /// <summary>
+        /// The competition
+        /// </summary>
+        
+        public string Competition { get; set; }
 
         /// <summary>
         /// the competitor
         /// </summary>
-        public string Club { get; set; }
+        public string Competitor { get; set; }
 
         /// <summary>
         /// Nationality
@@ -64,29 +60,47 @@ namespace webapi.Players_Update.Updates
         public CAthleteInjuryUpdate Injury { get; set; }
         public CAthleteSuspensionUpdate Suspension { get; set; }
 
+        /// <summary>
+        /// Athlete weight in grams
+        /// </summary>
+        public double? Weight { get; set; }
+
+        /// <summary>
+        /// Athlete height in centimeters
+        /// </summary>
+        public double? Height { get; set; }
+
+        public string DataSource { get; set; }
 
         public string Message { get; set; }
 
         public override string ToString()
         {
-            return string.Format("Athlete Update for {1} of {2} ({3})", "", Name, Club, Competitions);
+            return string.Format("Athlete Update from {0} for {1} of {2} ({3}: {4})", DataSource, Name, Competitor, Country, Competition);
         }
 
         public CPlayerUpdate Copy()
         {
             var ath = new CPlayerUpdate()
             {
-                Competitions = Competitions,
-                Club = Club,
+                Competition =  Competition ,
+                Competitor = Competitor,
+                Country = Country,
                 DOB = DOB,
                 FormationPosition = FormationPosition,
                 Position = Position,
                 Nationality = Nationality,
                 JerseyNum = JerseyNum,
                 Name = Name,
+                Weight = Weight,
+                Height = Height
             };
 
             return ath;
         }
+
+        public virtual DateTime WebRequestTime { get; set; }
+        public virtual DateTime WebResponseTime { get; set; }
+        public bool UsedProxy { get; set; }
     }
 }

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using webapi.Players_Update.Updates;
+using Updates;
 
 namespace webapi.Logic_Layer
 {
@@ -15,7 +15,7 @@ namespace webapi.Logic_Layer
         bool AddUser(int id);
         Users GetUserByID(int id);
         void UpdateSetting(string deviceID, int red, int yellow, int assists, int goals, int sheets,int apps);
-        string UpdatePlayers(CPlayerUpdate val);
+        int UpdatePlayers(CPlayerUpdate val);
         List<Players> GetTopPlayers(int res);
         NotificationsSettings GetNotificationsSettingByID(string deviceID);
         bool AddUser(string deviceID);

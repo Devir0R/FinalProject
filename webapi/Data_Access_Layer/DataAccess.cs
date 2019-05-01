@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using DataAccess;
-using webapi.Players_Update.Updates;
+using Updates;
 
 namespace webapi.Data_Access_Layer
 {
@@ -40,12 +40,12 @@ namespace webapi.Data_Access_Layer
             SettingDA.UpdateSetting(id, red_flag, yellow_flag, assists_flag, goals_flag, sheets_flag, appearances_flage);
         }
 
-        public Players UpdatePlayer(string name,Players newValues)
+        public Players UpdatePlayer(CPlayerUpdate val,ref bool isCreated)
         {
-            return PlayersDA.UpdatePlayer(name, newValues);
+            return PlayersDA.UpdatePlayer(val,ref isCreated);
         }
 
-        public void UpdateStatistics(CPlayerUpdate val,HashSet<string> competitions, List<KeyValuePair<string, Func<CompetitionStatistics, bool>>> updates, Players player)
+        public void UpdateStatistics(CPlayerUpdate val,HashSet<KeyValuePair<string,int>> competitions, List<KeyValuePair<KeyValuePair<string, int>, Func<CompetitionStatistics, bool>>> updates, Players player)
         {
             StatDA.UpdateStatistics(val,competitions, updates,player);
         }

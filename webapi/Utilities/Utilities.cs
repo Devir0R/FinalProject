@@ -29,7 +29,8 @@ namespace webapi.Utilities
                 CompetitionStatistics = new List<CompetitionStatistics>(),
                 Position1 = obj.Position1,
                 date_of_birth = obj.date_of_birth,
-                jerseyNum = obj.jerseyNum
+                jerseyNum = obj.jerseyNum,
+                pic = obj.pic
             };
             ret.Position1.Players.Clear();
             foreach(CompetitionStatistics cs in obj.CompetitionStatistics)

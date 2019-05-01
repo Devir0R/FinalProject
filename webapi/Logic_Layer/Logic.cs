@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using DataAccess;
 using webapi.Data_Access_Layer;
-using webapi.Players_Update.Updates;
+using Updates;
 
 namespace webapi.Logic_Layer
 {
@@ -61,38 +61,29 @@ namespace webapi.Logic_Layer
                 appearances_flage);
         }
 
-        public string UpdatePlayers(CPlayerUpdate val)
+        public int UpdatePlayers(CPlayerUpdate val)
         {
-            Players player = Update_A_Player(val);
-            if (player!=null)
+            bool isCreated = false;
+            Players player = Update_A_Player(val,ref isCreated);
+            int player_Id = -1;
+            if (isCreated)
             {
-                return "NOT FOUND";
+                player_Id = player.player_Id; ;
             }
             UpdateStatistics(val,player);
-            return "SUCCESS";
+            return player_Id;
         }
 
         private void UpdateStatistics(CPlayerUpdate val, Players player)
         {
-            HashSet<string> competitions = stat.GetCompetitionsFromUpdate(val.Statistics);
-            List<KeyValuePair<string, Func<CompetitionStatistics, bool>>> updates = stat.GenerateUpdates(val.Statistics);
+            HashSet<KeyValuePair<string,int>> competitions = stat.GetCompetitionsFromUpdate(val.Statistics);
+            List<KeyValuePair<KeyValuePair<string,int>, Func<CompetitionStatistics, bool>>> updates = stat.GenerateUpdates(val.Statistics);
             DA.UpdateStatistics(val,competitions, updates,player);
         }
 
-        public Players Update_A_Player(CPlayerUpdate val)
-        {
-            Players p = new Players()
-            {
-                club = val.Club,
-                date_of_birth = val.DOB,
-                in_game = false,
-                jerseyNum = val.JerseyNum,
-                nationality = val.Nationality,
-                position = val.Position,
-                injured = val.Injury.Active,
-                suspended = val.Suspension.Active,
-            };
-            return DA.UpdatePlayer(val.Name, p);
+        public Players Update_A_Player(CPlayerUpdate val, ref bool isCreated)
+        {           
+            return DA.UpdatePlayer(val, ref isCreated);
             
         }
 

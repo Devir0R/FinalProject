@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace webapi.Players_Update.Updates
+namespace Updates
 {
-
     public class CAthleteStatisticsUpdate
     {
         public CAthleteStatisticsUpdate()
@@ -18,11 +18,11 @@ namespace webapi.Players_Update.Updates
             Stats = stats;
         }
 
-        public string Country { get; set; }
+        public ParsableValue<int> Country { get; set; }
 
-        public string Competition { get; set; }
+        public ParsableValue<string> Competition { get; set; }
 
-        public int Season { get; set; }
+        public ParsableValue<int> Season { get; set; }
 
         public IList<CPlayerIndividualStat> Stats { get; set; }
 

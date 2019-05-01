@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Updates;
 
 namespace webapi.Data_Access_Layer
 {
@@ -54,7 +55,8 @@ namespace webapi.Data_Access_Layer
                 CompetitionStatistics = obj.CompetitionStatistics,
                 Position1 = obj.Position1,
                 date_of_birth = obj.date_of_birth,
-                jerseyNum = obj.jerseyNum
+                jerseyNum = obj.jerseyNum,
+                pic = obj.pic
             };
             foreach(CompetitionStatistics cs in ret.CompetitionStatistics)
             {
@@ -114,25 +116,73 @@ namespace webapi.Data_Access_Layer
             }
         }
 
-        internal Players UpdatePlayer(string name, Players newValues)
+        internal Players UpdatePlayer(CPlayerUpdate val, ref bool isCreated)
         {
             using (projDBEntities entities = new projDBEntities())
             {
-                Players obj = entities.Players.FirstOrDefault(e => e.name.ToLower() == name.ToLower());
+                Players obj = entities.Players.FirstOrDefault(e => e.name.ToLower() == val.Name.ToLower());
                 if (obj != null)
                 {
-                    obj.club = newValues.club;
-                    obj.date_of_birth = newValues.date_of_birth;
-                    obj.injured = newValues.injured;
-                    obj.jerseyNum = newValues.jerseyNum;
-                    obj.nationality = newValues.nationality;
-                    obj.position = newValues.position;
-                    obj.suspended = newValues.suspended;
-                    entities.SaveChanges();
-                    return obj;
+                    obj.club = val.Competitor;
+                    obj.date_of_birth = val.DOB;
+                    obj.injured = val.Injury.Active;
+                    obj.jerseyNum = val.JerseyNum;
+                    obj.nationality = val.Nationality;
+                    obj.position = val.Position;
+                    obj.suspended = val.Suspension.Active;
                 }
-                else return null;
+                else
+                {
+                    isCreated = true;
+                    obj = new Players()
+                    {
+                        club = val.Competitor,
+                        date_of_birth = val.DOB,
+                        injured = val.Injury.Active,
+                        jerseyNum = val.JerseyNum,
+                        nationality = val.Nationality,
+                        Position1 = entities.Position.FirstOrDefault(e=>e.position_num== val.Position),
+                        suspended = val.Suspension.Active,
+                        in_game = false,
+                        name = val.Name,
+                        pic = "",
+                        position = val.Position
+                    };
+                    entities.Players.Add(obj);
+                }
+                try
+                {
+                    entities.SaveChanges();
+                }
+                catch (System.Data.Entity.Validation.DbEntityValidationException e)
+                {
+
+                }
+                obj = Utilities.Utilities.ClonePlayersAcyclic(obj);
+                return obj;
             }
         }
     }
 }
+
+/*
+System.Data.Entity.Validation.DbEntityValidationException
+  HResult=0x80131920
+  Message=Validation failed for one or more entities. See 'EntityValidationErrors' property for more details.
+  Source=EntityFramework
+  StackTrace:
+   at System.Data.Entity.Internal.InternalContext.SaveChanges()
+   at System.Data.Entity.Internal.LazyInternalContext.SaveChanges()
+   at System.Data.Entity.DbContext.SaveChanges()
+   at webapi.Data_Access_Layer.PlayersDataAccess.UpdatePlayer(CPlayerUpdate val, Boolean& isCreated) in C:\Users\devir\source\repos\webapi\webapi\Data_Access_Layer\PlayersDataAccess.cs:line 153
+   at webapi.Data_Access_Layer.DataAccessImpl.UpdatePlayer(CPlayerUpdate val, Boolean& isCreated) in C:\Users\devir\source\repos\webapi\webapi\Data_Access_Layer\DataAccess.cs:line 45
+   at webapi.Logic_Layer.Logic.Update_A_Player(CPlayerUpdate val, Boolean& isCreated) in C:\Users\devir\source\repos\webapi\webapi\Logic_Layer\Logic.cs:line 85
+   at webapi.Logic_Layer.Logic.UpdatePlayers(CPlayerUpdate val) in C:\Users\devir\source\repos\webapi\webapi\Logic_Layer\Logic.cs:line 67
+   at webapi.Controllers.PlayerUpdateController.Post(CPlayerUpdate val) in C:\Users\devir\source\repos\webapi\webapi\Controllers\PlayerUpdateController.cs:line 56
+   at System.Web.Http.Controllers.ReflectedHttpActionDescriptor.ActionExecutor.<>c__DisplayClass6_2.<GetExecutor>b__2(Object instance, Object[] methodParameters)
+   at System.Web.Http.Controllers.ReflectedHttpActionDescriptor.ActionExecutor.Execute(Object instance, Object[] arguments)
+   at System.Web.Http.Controllers.ReflectedHttpActionDescriptor.ExecuteAsync(HttpControllerContext controllerContext, IDictionary`2 arguments, CancellationToken cancellationToken)
+
+
+
+ */

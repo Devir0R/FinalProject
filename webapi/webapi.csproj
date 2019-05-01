@@ -218,8 +218,12 @@
     <Compile Include="Players_Update\Updates\CAthleteInjuryUpdate.cs" />
     <Compile Include="Players_Update\Updates\CAthleteStatisticsUpdate.cs" />
     <Compile Include="Players_Update\Updates\CAthleteSuspensionUpdate.cs" />
+    <Compile Include="Players_Update\Updates\CGameUpdate.cs" />
     <Compile Include="Players_Update\Updates\CPlayerIndividualStat.cs" />
     <Compile Include="Players_Update\Updates\CPlayerUpdate.cs" />
+    <Compile Include="Players_Update\Updates\CPrimitiveCompetitorInGame.cs" />
+    <Compile Include="Players_Update\Updates\CSoccerGameUpdate.cs" />
+    <Compile Include="Players_Update\Updates\ParsableValue.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Search_Decorator\AgeSearch.cs" />
     <Compile Include="Search_Decorator\ClubSearch.cs" />

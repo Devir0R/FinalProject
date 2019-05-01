@@ -4,8 +4,8 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using Updates;
 using webapi.Logic_Layer;
-using webapi.Players_Update.Updates;
 
 namespace webapi.Controllers
 {
@@ -16,18 +16,34 @@ namespace webapi.Controllers
         [HttpGet]
         public HttpResponseMessage Get(int Id)
         {
-            CPlayerUpdate pa = new CPlayerUpdate
+            ParsableValue<string> league = new ParsableValue<string>("LigaBBVA");
+            league.Parse(league.Value);
+            CPlayerUpdate pa = new CPlayerUpdate()
             {
-                Club = "P.S.G",
-                Competitions = new List<string>()
-                {
-                    "LigaBBVA",
-                    "PremierLeague"
-                },
+                Competition = "LigaBBVA",
                 DOB = DateTime.Now,
+                Competitor = "BBB",
                 FormationPosition = 11,
-                Injury = new CAthleteInjuryUpdate(),
-                Suspension = new CAthleteSuspensionUpdate(),
+                Injury = new CAthleteInjuryUpdate()
+                {
+                    Active = true,
+                    AddedToGames = new List<long>(),
+                    ExceptedReturn = "expected return",
+                    LastUpdate = DateTime.Now,
+                    Reason = "reason",
+                    RemovedFromGames = new List<long>(),
+                    StartDate = DateTime.Now
+                },
+                Suspension = new CAthleteSuspensionUpdate()
+                {
+                    Active = false,
+                    StartDate = DateTime.Now,
+                    Competition = "comp",
+                    Country = "country",
+                    GamesBannedLeft = 1,
+                    GamesCount = 5,
+                    SuspensionType = 5
+                },
                 JerseyNum = 55,
                 Message = "hey!",
                 Name = "Daddy",
@@ -37,10 +53,28 @@ namespace webapi.Controllers
                 {
                     new CAthleteStatisticsUpdate()
                     {
-                        Competition = "hey",
-                        Country = "hey",
-                        Season = 2012,
-                        Stats = null
+                        Competition = league,
+                        Country = new ParsableValue<int>(6),
+                        Season = new ParsableValue<int>(2019),
+                        
+                        Stats = new List<CPlayerIndividualStat>()
+                        {
+                            new CPlayerIndividualStat()
+                            {
+                                StatisticType = 3,
+                                Value = "9"
+                            },
+                             new CPlayerIndividualStat()
+                            {
+                                StatisticType = 2,
+                                Value = "2"
+                            },
+                            new CPlayerIndividualStat()
+                            {
+                                StatisticType = 4,
+                                Value = "22"
+                            }
+                        }
                     }
                 }
             };
@@ -50,46 +84,16 @@ namespace webapi.Controllers
         [HttpPost]
         public HttpResponseMessage Post([FromBody] CPlayerUpdate val)
         {
-            string resp = Logic.UpdatePlayers(val);
-            if(resp== "NOT FOUND")
+            int resp = Logic.UpdatePlayers(val);
+            if (resp>= 0)
             {
-                return Request.CreateResponse(HttpStatusCode.NotFound);
+                return Request.CreateResponse(HttpStatusCode.Created,resp);
             }
-            return Request.CreateResponse(HttpStatusCode.OK, resp);
+            else
+            {
+
+            }
+            return Request.CreateResponse(HttpStatusCode.OK);
         }
     }
 }
-
-/*
- {"Name":"Daddy",
- "Competitions":[],
- "Club":"P.S.G",
- "Nationality":"German",
- "JerseyNum":55,
- "Position":15,
- "FormationPosition":11,
- "DOB":"2019-04-22T16:26:48.3755968+03:00",
- "Statistics":[],
- "Injury":
-    {
-    "Reason":null,
-    "StartDate":"0001-01-01T00:00:00",
-    "ExceptedReturn":null,
-    "LastUpdate":"0001-01-01T00:00:00",
-    "Active":true
-    },
-    "Suspension":
-        {
-        "SuspensionType":0,
-        "Country":null,
-        "Competition":null,
-        "StartDate":"0001-01-01T00:00:00",
-        "GamesCount":0,
-        "GamesBannedLeft":0,
-        "Active":true
-        },
-    "Message":"hey!"
-  }
-    
-    */
-

@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace webapi.Players_Update.Updates
+namespace Updates
 {
     public class CAthleteSuspensionUpdate
     {
