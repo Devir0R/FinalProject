@@ -1,19 +1,21 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using DataAccess;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using webapi.Controllers;
 
 namespace ProjectUnitTests
 {
     [TestClass]
     public class PlayersTests
     {
-
-        //[TestMethod]
-        public void Test()
+        PlayersController Pc;
+        [TestInitialize]
+        public void TestInitialize()
         {
-
-
+             Pc = new PlayersController();
         }
+
     }
 }
