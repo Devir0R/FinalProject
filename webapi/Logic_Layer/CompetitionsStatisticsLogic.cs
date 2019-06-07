@@ -8,7 +8,7 @@ namespace webapi.Logic_Layer
 {
     public class CompetitionsStatisticsLogic
     {
-        internal List<KeyValuePair<KeyValuePair<string,int>, Func<CompetitionStatistics, bool>>> GenerateUpdates(IList<CAthleteStatisticsUpdate> statistics)
+        public List<KeyValuePair<KeyValuePair<string,int>, Func<CompetitionStatistics, bool>>> GenerateUpdates(IList<CAthleteStatisticsUpdate> statistics)
         {
             List<KeyValuePair<KeyValuePair<string, int>, Func<CompetitionStatistics, bool>>> updates = new List<KeyValuePair<KeyValuePair<string, int>, Func<CompetitionStatistics, bool>>>();
             foreach (CAthleteStatisticsUpdate update in statistics)
@@ -33,6 +33,9 @@ namespace webapi.Logic_Layer
                                     case (int)ESoccerPlayerStatistics.YellowCards:
                                         e.Yellow_Cards = val;
                                         break;
+                                    case (int)ESoccerPlayerStatistics.Appearences:
+                                        e.Appearance = val;
+                                        break;
                                 }
                                 return true;
                             }
@@ -43,7 +46,7 @@ namespace webapi.Logic_Layer
             return updates;
         }
 
-        internal HashSet<KeyValuePair<string, int>> GetCompetitionsFromUpdate(IList<CAthleteStatisticsUpdate> statistics)
+        public HashSet<KeyValuePair<string, int>> GetCompetitionsFromUpdate(IList<CAthleteStatisticsUpdate> statistics)
         {
             HashSet<KeyValuePair<string,int>> competitions = new HashSet<KeyValuePair<string, int>>();
             foreach(CAthleteStatisticsUpdate update in statistics)

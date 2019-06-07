@@ -63,27 +63,27 @@ namespace webapi.Logic_Layer
 
         public int UpdatePlayers(CPlayerUpdate val)
         {
-            bool isCreated = false;
-            Players player = Update_A_Player(val,ref isCreated);
-            int player_Id = -1;
-            if (isCreated)
-            {
-                player_Id = player.player_Id; ;
-            }
-            UpdateStatistics(val,player);
-            return player_Id;
+            int player_id = Update_A_Player(val);
+            if(player_id!=-1)
+                UpdateStatistics(val, player_id);
+            return player_id;
         }
 
-        private void UpdateStatistics(CPlayerUpdate val, Players player)
+        private void UpdateStatistics(CPlayerUpdate val, int player_id)
         {
+            foreach(CAthleteStatisticsUpdate up in val.Statistics)
+            {
+                up.Competition = new ParsableValue<string>( val.Competition);
+                up.Competition.Parse(val.Competition);
+            }
             HashSet<KeyValuePair<string,int>> competitions = stat.GetCompetitionsFromUpdate(val.Statistics);
             List<KeyValuePair<KeyValuePair<string,int>, Func<CompetitionStatistics, bool>>> updates = stat.GenerateUpdates(val.Statistics);
-            DA.UpdateStatistics(val,competitions, updates,player);
+            DA.UpdateStatistics(val,competitions, updates, player_id);
         }
 
-        public Players Update_A_Player(CPlayerUpdate val, ref bool isCreated)
+        public int Update_A_Player(CPlayerUpdate val)
         {           
-            return DA.UpdatePlayer(val, ref isCreated);
+            return DA.UpdatePlayer(val);
             
         }
 

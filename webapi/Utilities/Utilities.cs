@@ -20,7 +20,7 @@ namespace webapi.Utilities
                 player_Id = obj.player_Id,
                 name = obj.name.Trim(),
                 club = obj.club.Trim(),
-                nationality = obj.nationality.Trim(),
+                nationality = obj.nationality==null? null : obj.nationality.Trim(),
                 in_game = obj.in_game,
                 position = obj.position,
                 //Users = obj.Users,

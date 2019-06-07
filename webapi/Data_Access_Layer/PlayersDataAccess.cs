@@ -116,7 +116,7 @@ namespace webapi.Data_Access_Layer
             }
         }
 
-        internal Players UpdatePlayer(CPlayerUpdate val, ref bool isCreated)
+        internal int UpdatePlayer(CPlayerUpdate val)
         {
             using (projDBEntities entities = new projDBEntities())
             {
@@ -125,41 +125,60 @@ namespace webapi.Data_Access_Layer
                 {
                     obj.club = val.Competitor;
                     obj.date_of_birth = val.DOB;
-                    obj.injured = val.Injury.Active;
                     obj.jerseyNum = val.JerseyNum;
                     obj.nationality = val.Nationality;
                     obj.position = val.Position;
-                    obj.suspended = val.Suspension.Active;
+                    try
+                    {
+                        entities.SaveChanges();
+                    }
+                    catch (System.Data.Entity.Validation.DbEntityValidationException e)
+                    {
+
+                    }
                 }
                 else
                 {
-                    isCreated = true;
-                    obj = new Players()
+                    int times = 0;
+                    while (true)
                     {
-                        club = val.Competitor,
-                        date_of_birth = val.DOB,
-                        injured = val.Injury.Active,
-                        jerseyNum = val.JerseyNum,
-                        nationality = val.Nationality,
-                        Position1 = entities.Position.FirstOrDefault(e=>e.position_num== val.Position),
-                        suspended = val.Suspension.Active,
-                        in_game = false,
-                        name = val.Name,
-                        pic = "",
-                        position = val.Position
-                    };
-                    entities.Players.Add(obj);
-                }
-                try
-                {
-                    entities.SaveChanges();
-                }
-                catch (System.Data.Entity.Validation.DbEntityValidationException e)
-                {
+                        obj = new Players()
+                        {
+                            player_Id = entities.Players.OrderByDescending(p => p.player_Id).FirstOrDefault().player_Id + 1,
+                            club = val.Competitor,
+                            date_of_birth = val.DOB,
+                            jerseyNum = val.JerseyNum,
+                            nationality = val.Nationality,
+                            Position1 = entities.Position.FirstOrDefault(po => po.position_num == val.Position),
+                            in_game = false,
+                            name = val.Name,
+                            pic = "",
+                            position = val.Position
+                        };
+                        entities.Players.Add(obj);
+                        try
+                        {
+                            entities.SaveChanges();
+                            break;
+                        }
+                        catch (System.Data.Entity.Validation.DbEntityValidationException)
+                        {
 
+                        }
+                        catch (System.Data.Entity.Infrastructure.DbUpdateException)
+                        {
+
+                        }
+                        times++;
+                        if (times > 100)
+                        {
+                            return -1;
+                        }
+                    }
                 }
+
                 obj = Utilities.Utilities.ClonePlayersAcyclic(obj);
-                return obj;
+                return obj.player_Id;
             }
         }
     }

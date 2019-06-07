@@ -9,38 +9,53 @@ namespace webapi.Data_Access_Layer
 {
     public class CompetitionStatisticsDataAccess
     {
-        internal void UpdateStatistics(CPlayerUpdate val, HashSet<KeyValuePair<string,int>> competitions, List<KeyValuePair<KeyValuePair<string, int>, Func<CompetitionStatistics, bool>>> updates, Players player)
+        internal void UpdateStatistics(CPlayerUpdate val, HashSet<KeyValuePair<string, int>> competitions, List<KeyValuePair<KeyValuePair<string, int>, Func<CompetitionStatistics, bool>>> updates, int player_Id)
         {
             using (projDBEntities entities = new projDBEntities())
             {
-                AddMissingCompetitions(competitions, player, entities);
+                AddMissingCompetitions(competitions, player_Id, entities);
                 entities.SaveChanges();
+
+            }
+            using (projDBEntities entities = new projDBEntities())
+            {
                 foreach (KeyValuePair<KeyValuePair<string, int>, Func<CompetitionStatistics, bool>> update in updates)
                 {
-                    CompetitionStatistics comp = entities.CompetitionStatistics.FirstOrDefault(e => e.Player_id == player.player_Id && e.Competition_name.Trim() == update.Key.Key.Trim() && e.Competition_year == update.Key.Value);
-                    update.Value.Invoke(comp);
+                    for (int i = 0; i < 5; i++)
+                        try
+                        {
+                            CompetitionStatistics compToUpdate = entities.CompetitionStatistics.FirstOrDefault(e => e.Player_id == player_Id && e.Competition_name.Trim() == update.Key.Key.Trim() && e.Competition_year == update.Key.Value);
+                            if (compToUpdate != null)
+                            {
+                                update.Value.Invoke(compToUpdate);
+                                break;
+                            }
+                        }
+                        catch (NullReferenceException) { }
 
                 }
                 try
                 {
                     entities.SaveChanges();
-                } catch(Exception e)
+                }
+                catch (Exception)
                 {
 
                 }
 
             }
+
         }
 
-        private static void AddMissingCompetitions(HashSet<KeyValuePair<string,int>> competitions, Players player, projDBEntities entities)
+        private static void AddMissingCompetitions(HashSet<KeyValuePair<string, int>> competitions, int player_Id, projDBEntities entities)
         {
-            foreach (KeyValuePair<string,int> comp in competitions)
+            foreach (KeyValuePair<string, int> comp in competitions)
             {
                 bool exists = false;
                 foreach (CompetitionStatistics stat in entities.CompetitionStatistics)
                 {
                     if (stat.Competition_name.Trim() == comp.Key.Trim() && stat.Competition_year == comp.Value
-                        && stat.Player_id == player.player_Id)
+                        && stat.Player_id == player_Id)
                     {
                         exists = true;
                         break;
@@ -48,12 +63,12 @@ namespace webapi.Data_Access_Layer
                 }
                 if (!exists)
                 {
-                    entities.CompetitionStatistics.Add(CreateCompetitionsStat(player, comp));
+                    entities.CompetitionStatistics.Add(CreateCompetitionsStat(player_Id, comp));
                 }
             }
         }
 
-        private static CompetitionStatistics CreateCompetitionsStat(Players player, KeyValuePair<string,int> comp)
+        private static CompetitionStatistics CreateCompetitionsStat(int player_Id, KeyValuePair<string, int> comp)
         {
             return new CompetitionStatistics()
             {
@@ -62,7 +77,7 @@ namespace webapi.Data_Access_Layer
                 Assists = 0,
                 Goals = 0,
                 Offsides = 0,
-                Player_id = player.player_Id,
+                Player_id = player_Id,
                 Red_cards = 0,
                 Suspension = false,
                 Yellow_Cards = 0

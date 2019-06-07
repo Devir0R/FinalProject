@@ -20,7 +20,7 @@ namespace DataAccess
             this.CompetitionStatistics = new HashSet<CompetitionStatistics>();
             this.Users = new HashSet<Users>();
         }
-    
+
         public int player_Id { get; set; }
         public string name { get; set; }
         public string club { get; set; }

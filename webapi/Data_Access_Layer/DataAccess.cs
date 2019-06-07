@@ -40,14 +40,14 @@ namespace webapi.Data_Access_Layer
             SettingDA.UpdateSetting(id, red_flag, yellow_flag, assists_flag, goals_flag, sheets_flag, appearances_flage);
         }
 
-        public Players UpdatePlayer(CPlayerUpdate val,ref bool isCreated)
+        public int UpdatePlayer(CPlayerUpdate val)
         {
-            return PlayersDA.UpdatePlayer(val,ref isCreated);
+            return PlayersDA.UpdatePlayer(val);
         }
 
-        public void UpdateStatistics(CPlayerUpdate val,HashSet<KeyValuePair<string,int>> competitions, List<KeyValuePair<KeyValuePair<string, int>, Func<CompetitionStatistics, bool>>> updates, Players player)
+        public void UpdateStatistics(CPlayerUpdate val,HashSet<KeyValuePair<string,int>> competitions, List<KeyValuePair<KeyValuePair<string, int>, Func<CompetitionStatistics, bool>>> updates, int player_id)
         {
-            StatDA.UpdateStatistics(val,competitions, updates,player);
+            StatDA.UpdateStatistics(val,competitions, updates, player_id);
         }
 
         public List<Players> GetTopPlayers(int res)

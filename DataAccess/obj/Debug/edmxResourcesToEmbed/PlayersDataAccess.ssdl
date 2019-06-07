@@ -12,7 +12,7 @@
     <Property Name="Assists" Type="int" Nullable="false" />
     <Property Name="Offsides" Type="int" Nullable="false" />
     <Property Name="Appearance" Type="int" Nullable="false" />
-    <Property Name="Competition_name" Type="char" MaxLength="20" Nullable="false" />
+    <Property Name="Competition_name" Type="char" MaxLength="200" Nullable="false" />
     <Property Name="Competition_year" Type="int" />
     <Property Name="Suspension" Type="bit" />
   </EntityType>

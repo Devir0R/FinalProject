@@ -17,7 +17,7 @@
           <Property Name="Assists" Type="int" Nullable="false" />
           <Property Name="Offsides" Type="int" Nullable="false" />
           <Property Name="Appearance" Type="int" Nullable="false" />
-          <Property Name="Competition_name" Type="char" MaxLength="20" Nullable="false" />
+          <Property Name="Competition_name" Type="char" MaxLength="200" Nullable="false" />
           <Property Name="Competition_year" Type="int" />
           <Property Name="Suspension" Type="bit" />
         </EntityType>
@@ -187,7 +187,7 @@
           <Property Name="Assists" Type="Int32" Nullable="false" />
           <Property Name="Offsides" Type="Int32" Nullable="false" />
           <Property Name="Appearance" Type="Int32" Nullable="false" />
-          <Property Name="Competition_name" Type="String" MaxLength="20" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Competition_name" Type="String" MaxLength="200" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="Competition_year" Type="Int32" />
           <Property Name="Suspension" Type="Boolean" />
           <NavigationProperty Name="Players" Relationship="Self.FK__Competiti__Playe__662B2B3B" FromRole="CompetitionStatistics" ToRole="Players" />

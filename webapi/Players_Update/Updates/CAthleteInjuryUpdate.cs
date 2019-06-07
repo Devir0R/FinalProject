@@ -18,8 +18,8 @@ namespace Updates
         public string ExceptedReturn { get; set; }
         public DateTime LastUpdate { get; set; }
         public bool Active { get; set; }
-        internal IList<long> AddedToGames { get; set; }
-        internal IList<long> RemovedFromGames { get; set; }
+        public IList<long> AddedToGames { get; set; }
+        public IList<long> RemovedFromGames { get; set; }
 
         public void AddUpdatedGame(long GameID)
         {
