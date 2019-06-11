@@ -211,6 +211,8 @@
     <Compile Include="Logic_Layer\Logic.cs" />
     <Compile Include="Logic_Layer\NotificationsSettingLogic.cs" />
     <Compile Include="Logic_Layer\PlayersLogic.cs" />
+    <Compile Include="Search_Decorator\LeagueSearch.cs" />
+    <Compile Include="Search_Decorator\PositionSearch.cs" />
     <Compile Include="Logic_Layer\SubscribersLogic.cs" />
     <Compile Include="Logic_Layer\UsersLogic.cs" />
     <Compile Include="Players_Update\Enums\PlayerEnums.cs" />
@@ -322,7 +324,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DataAccess\DataAccess.csproj">
-      <Project>{a8cd43c6-ba30-4385-b8b3-ef3e9721fb23}</Project>
+      <Project>{064bf8e3-a33a-4122-b3f4-2e67eaf79b7f}</Project>
       <Name>DataAccess</Name>
     </ProjectReference>
   </ItemGroup>

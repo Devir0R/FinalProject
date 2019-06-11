@@ -5,8 +5,8 @@ C:\Users\devir\source\repos\webapi\DataAccess\bin\Debug\EntityFramework.dll
 C:\Users\devir\source\repos\webapi\DataAccess\bin\Debug\EntityFramework.SqlServer.dll
 C:\Users\devir\source\repos\webapi\DataAccess\bin\Debug\EntityFramework.xml
 C:\Users\devir\source\repos\webapi\DataAccess\bin\Debug\EntityFramework.SqlServer.xml
-C:\Users\devir\source\repos\webapi\DataAccess\obj\Debug\DataAccess.csprojAssemblyReference.cache
 C:\Users\devir\source\repos\webapi\DataAccess\obj\Debug\DataAccess.csproj.CoreCompileInputs.cache
 C:\Users\devir\source\repos\webapi\DataAccess\obj\Debug\DataAccess.csproj.CopyComplete
 C:\Users\devir\source\repos\webapi\DataAccess\obj\Debug\DataAccess.dll
 C:\Users\devir\source\repos\webapi\DataAccess\obj\Debug\DataAccess.pdb
+C:\Users\devir\source\repos\webapi\DataAccess\obj\Debug\DataAccess.csprojAssemblyReference.cache

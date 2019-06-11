@@ -11,6 +11,10 @@ namespace webapi.Search_Decorator
 
         public ClubSearch(ISearchDecorator search,string club) : base(search)
         {
+            if (club == null)
+            {
+                club = "";
+            }
             base.Pred = (e => e.club.ToLower().Contains(club.ToLower()));
         }
     }

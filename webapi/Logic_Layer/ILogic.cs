@@ -11,7 +11,7 @@ namespace webapi.Logic_Layer
     interface ILogic
     {
         Players GetPlayerByID(int id);
-        List<Players> Search(string keyword,string club, int ageUp, int ageDown, string nationality);
+        List<Players> Search(string keyword,string club, int ageUp, int ageDown, string nationality, string position,string league);
         bool AddUser(int id);
         Users GetUserByID(int id);
         void UpdateSetting(string deviceID, int red, int yellow, int assists, int goals, int sheets,int apps);

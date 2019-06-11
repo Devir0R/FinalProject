@@ -56,7 +56,8 @@ namespace webapi.Data_Access_Layer
                 Position1 = obj.Position1,
                 date_of_birth = obj.date_of_birth,
                 jerseyNum = obj.jerseyNum,
-                pic = obj.pic
+                pic = obj.pic,
+                league = obj.league
             };
             foreach(CompetitionStatistics cs in ret.CompetitionStatistics)
             {
@@ -127,7 +128,16 @@ namespace webapi.Data_Access_Layer
                     obj.date_of_birth = val.DOB;
                     obj.jerseyNum = val.JerseyNum;
                     obj.nationality = val.Nationality;
-                    obj.position = val.Position;
+                    obj.position = val.FormationPosition;
+                    if(obj.league!=null && !obj.league.Contains(val.Competition))
+                    {
+                        obj.league += "&" + val.Competition;
+                    }
+                    else if (obj.league==null)
+                    {
+                        obj.league = val.Competition;
+                    }
+                    
                     try
                     {
                         entities.SaveChanges();
@@ -153,7 +163,9 @@ namespace webapi.Data_Access_Layer
                             in_game = false,
                             name = val.Name,
                             pic = "",
-                            position = val.Position
+                            position = val.FormationPosition,
+                            league = val.Competition,
+                            
                         };
                         entities.Players.Add(obj);
                         try

@@ -30,7 +30,8 @@ namespace webapi.Utilities
                 Position1 = obj.Position1,
                 date_of_birth = obj.date_of_birth,
                 jerseyNum = obj.jerseyNum,
-                pic = obj.pic
+                pic = obj.pic,
+                league = obj.league
             };
             ret.Position1.Players.Clear();
             foreach(CompetitionStatistics cs in obj.CompetitionStatistics)

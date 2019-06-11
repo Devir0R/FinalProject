@@ -16,15 +16,15 @@ namespace webapi.Controllers
         private ILogic Logic = new Logic();
 
         [HttpGet]
-        public HttpResponseMessage Get(string top = "",string keyword = "", string club  = "",int ageup=120,int agedown=0,string nationality="")
+        public HttpResponseMessage Get(string top = "",string keyword = "", string club  = "",int ageup=120,int agedown=0,string nationality="",string position="",string league="")
         {
             List<Players> ret;
             if (top == "")
             {
                 string fullName = keyword.ToLower();
-                string clubName = club.ToLower();
+                string clubName = club==null? "" : club.ToLower();
 
-                ret = Logic.Search(fullName, clubName, ageup, agedown, nationality);
+                ret = Logic.Search(fullName, clubName, ageup, agedown, nationality, position,league);
                 
             }
             else

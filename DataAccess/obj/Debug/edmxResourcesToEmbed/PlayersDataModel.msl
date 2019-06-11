@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="projDBModelStoreContainer" CdmEntityContainer="projDBEntities">
+    <EntitySetMapping Name="CompetitionStatistics">
+      <EntityTypeMapping TypeName="projDBModel.CompetitionStatistics">
+        <MappingFragment StoreEntitySet="CompetitionStatistics">
+          <ScalarProperty Name="Player_id" ColumnName="Player_id" />
+          <ScalarProperty Name="Red_cards" ColumnName="Red_cards" />
+          <ScalarProperty Name="Yellow_Cards" ColumnName="Yellow_Cards" />
+          <ScalarProperty Name="Goals" ColumnName="Goals" />
+          <ScalarProperty Name="Assists" ColumnName="Assists" />
+          <ScalarProperty Name="Offsides" ColumnName="Offsides" />
+          <ScalarProperty Name="Appearance" ColumnName="Appearance" />
+          <ScalarProperty Name="Clean_Sheets" ColumnName="Clean_Sheets" />
+          <ScalarProperty Name="Competition_name" ColumnName="Competition_name" />
+          <ScalarProperty Name="Competition_year" ColumnName="Competition_year" />
+          <ScalarProperty Name="Suspension" ColumnName="Suspension" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Game">
+      <EntityTypeMapping TypeName="projDBModel.Game">
+        <MappingFragment StoreEntitySet="Game">
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="Home" ColumnName="Home" />
+          <ScalarProperty Name="Away" ColumnName="Away" />
+          <ScalarProperty Name="HomeGoals" ColumnName="HomeGoals" />
+          <ScalarProperty Name="AwayGoals" ColumnName="AwayGoals" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="NotificationsSettings">
+      <EntityTypeMapping TypeName="projDBModel.NotificationsSettings">
+        <MappingFragment StoreEntitySet="NotificationsSettings">
+          <ScalarProperty Name="User_id" ColumnName="User_id" />
+          <ScalarProperty Name="Red_cards" ColumnName="Red_cards" />
+          <ScalarProperty Name="Yellow_cards" ColumnName="Yellow_cards" />
+          <ScalarProperty Name="Assists" ColumnName="Assists" />
+          <ScalarProperty Name="Goals" ColumnName="Goals" />
+          <ScalarProperty Name="Clean_sheets" ColumnName="Clean_sheets" />
+          <ScalarProperty Name="Appearance" ColumnName="Appearance" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Players">
+      <EntityTypeMapping TypeName="projDBModel.Players">
+        <MappingFragment StoreEntitySet="Players">
+          <ScalarProperty Name="player_Id" ColumnName="player_Id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="club" ColumnName="club" />
+          <ScalarProperty Name="jerseyNum" ColumnName="jerseyNum" />
+          <ScalarProperty Name="nationality" ColumnName="nationality" />
+          <ScalarProperty Name="position" ColumnName="position" />
+          <ScalarProperty Name="date_of_birth" ColumnName="date_of_birth" />
+          <ScalarProperty Name="injured" ColumnName="injured" />
+          <ScalarProperty Name="suspended" ColumnName="suspended" />
+          <ScalarProperty Name="in_game" ColumnName="in_game" />
+          <ScalarProperty Name="pic" ColumnName="pic" />
+          <ScalarProperty Name="league" ColumnName="league" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Position">
+      <EntityTypeMapping TypeName="projDBModel.Position">
+        <MappingFragment StoreEntitySet="Position">
+          <ScalarProperty Name="position_num" ColumnName="position_num" />
+          <ScalarProperty Name="FormationPosition" ColumnName="FormationPosition" />
+          <ScalarProperty Name="Position1" ColumnName="Position" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="projDBModel.Users">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="User_Id" ColumnName="User_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="Subscribers" TypeName="projDBModel.Subscribers" StoreEntitySet="Subscribers">
+      <EndProperty Name="Players">
+        <ScalarProperty Name="player_Id" ColumnName="Player_id" />
+      </EndProperty>
+      <EndProperty Name="Users">
+        <ScalarProperty Name="User_Id" ColumnName="User_id" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping>

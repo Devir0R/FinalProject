@@ -1,0 +1,171 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="projDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="CompetitionStatistics">
+    <Key>
+      <PropertyRef Name="Player_id" />
+      <PropertyRef Name="Competition_name" />
+      <PropertyRef Name="Competition_year" />
+    </Key>
+    <Property Name="Player_id" Type="int" Nullable="false" />
+    <Property Name="Red_cards" Type="int" Nullable="false" />
+    <Property Name="Yellow_Cards" Type="int" Nullable="false" />
+    <Property Name="Goals" Type="int" Nullable="false" />
+    <Property Name="Assists" Type="int" Nullable="false" />
+    <Property Name="Offsides" Type="int" Nullable="false" />
+    <Property Name="Appearance" Type="int" Nullable="false" />
+    <Property Name="Clean_Sheets" Type="int" />
+    <Property Name="Competition_name" Type="char" MaxLength="200" Nullable="false" />
+    <Property Name="Competition_year" Type="int" Nullable="false" />
+    <Property Name="Suspension" Type="bit" />
+  </EntityType>
+  <EntityType Name="Game">
+    <Key>
+      <PropertyRef Name="Date" />
+    </Key>
+    <Property Name="Date" Type="date" Nullable="false" />
+    <Property Name="Home" Type="char" MaxLength="50" Nullable="false" />
+    <Property Name="Away" Type="char" MaxLength="50" Nullable="false" />
+    <Property Name="HomeGoals" Type="int" Nullable="false" />
+    <Property Name="AwayGoals" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="NotificationsSettings">
+    <Key>
+      <PropertyRef Name="User_id" />
+    </Key>
+    <Property Name="User_id" Type="bigint" Nullable="false" />
+    <Property Name="Red_cards" Type="bit" />
+    <Property Name="Yellow_cards" Type="bit" />
+    <Property Name="Assists" Type="bit" />
+    <Property Name="Goals" Type="bit" />
+    <Property Name="Clean_sheets" Type="bit" />
+    <Property Name="Appearance" Type="bit" />
+  </EntityType>
+  <EntityType Name="Players">
+    <Key>
+      <PropertyRef Name="player_Id" />
+    </Key>
+    <Property Name="player_Id" Type="int" Nullable="false" />
+    <Property Name="name" Type="nchar" MaxLength="50" Nullable="false" />
+    <Property Name="club" Type="nchar" MaxLength="20" Nullable="false" />
+    <Property Name="jerseyNum" Type="int" />
+    <Property Name="nationality" Type="nchar" MaxLength="20" Nullable="false" />
+    <Property Name="position" Type="int" />
+    <Property Name="date_of_birth" Type="date" />
+    <Property Name="injured" Type="bit" Nullable="false" />
+    <Property Name="suspended" Type="bit" Nullable="false" />
+    <Property Name="in_game" Type="bit" Nullable="false" />
+    <Property Name="pic" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="league" Type="varchar" MaxLength="500" />
+  </EntityType>
+  <EntityType Name="Position">
+    <Key>
+      <PropertyRef Name="position_num" />
+    </Key>
+    <Property Name="position_num" Type="int" Nullable="false" />
+    <Property Name="FormationPosition" Type="nchar" MaxLength="15" Nullable="false" />
+    <Property Name="Position" Type="nchar" MaxLength="15" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Subscribers">
+    <Key>
+      <PropertyRef Name="User_id" />
+      <PropertyRef Name="Player_id" />
+    </Key>
+    <Property Name="User_id" Type="bigint" Nullable="false" />
+    <Property Name="Player_id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="User_Id" />
+    </Key>
+    <Property Name="User_Id" Type="bigint" Nullable="false" />
+  </EntityType>
+  <Association Name="FK__Competiti__Playe__3DE82FB7">
+    <End Role="Players" Type="Self.Players" Multiplicity="1" />
+    <End Role="CompetitionStatistics" Type="Self.CompetitionStatistics" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Players">
+        <PropertyRef Name="player_Id" />
+      </Principal>
+      <Dependent Role="CompetitionStatistics">
+        <PropertyRef Name="Player_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Notificat__User___489AC854">
+    <End Role="Users" Type="Self.Users" Multiplicity="1" />
+    <End Role="NotificationsSettings" Type="Self.NotificationsSettings" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="User_Id" />
+      </Principal>
+      <Dependent Role="NotificationsSettings">
+        <PropertyRef Name="User_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Players__positio__336AA144">
+    <End Role="Position" Type="Self.Position" Multiplicity="0..1" />
+    <End Role="Players" Type="Self.Players" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Position">
+        <PropertyRef Name="position_num" />
+      </Principal>
+      <Dependent Role="Players">
+        <PropertyRef Name="position" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Subscribe__Playe__32767D0B">
+    <End Role="Players" Type="Self.Players" Multiplicity="1" />
+    <End Role="Subscribers" Type="Self.Subscribers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Players">
+        <PropertyRef Name="player_Id" />
+      </Principal>
+      <Dependent Role="Subscribers">
+        <PropertyRef Name="Player_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Subscribe__User___46B27FE2">
+    <End Role="Users" Type="Self.Users" Multiplicity="1" />
+    <End Role="Subscribers" Type="Self.Subscribers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="User_Id" />
+      </Principal>
+      <Dependent Role="Subscribers">
+        <PropertyRef Name="User_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="projDBModelStoreContainer">
+    <EntitySet Name="CompetitionStatistics" EntityType="Self.CompetitionStatistics" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Game" EntityType="Self.Game" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="NotificationsSettings" EntityType="Self.NotificationsSettings" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Players" EntityType="Self.Players" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Position" EntityType="Self.Position" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Subscribers" EntityType="Self.Subscribers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Competiti__Playe__3DE82FB7" Association="Self.FK__Competiti__Playe__3DE82FB7">
+      <End Role="Players" EntitySet="Players" />
+      <End Role="CompetitionStatistics" EntitySet="CompetitionStatistics" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Notificat__User___489AC854" Association="Self.FK__Notificat__User___489AC854">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="NotificationsSettings" EntitySet="NotificationsSettings" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Players__positio__336AA144" Association="Self.FK__Players__positio__336AA144">
+      <End Role="Position" EntitySet="Position" />
+      <End Role="Players" EntitySet="Players" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Subscribe__Playe__32767D0B" Association="Self.FK__Subscribe__Playe__32767D0B">
+      <End Role="Players" EntitySet="Players" />
+      <End Role="Subscribers" EntitySet="Subscribers" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Subscribe__User___46B27FE2" Association="Self.FK__Subscribe__User___46B27FE2">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Subscribers" EntitySet="Subscribers" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -20,7 +20,7 @@ namespace DataAccess
             this.CompetitionStatistics = new HashSet<CompetitionStatistics>();
             this.Users = new HashSet<Users>();
         }
-
+    
         public int player_Id { get; set; }
         public string name { get; set; }
         public string club { get; set; }
@@ -32,6 +32,7 @@ namespace DataAccess
         public bool suspended { get; set; }
         public bool in_game { get; set; }
         public string pic { get; set; }
+        public string league { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CompetitionStatistics> CompetitionStatistics { get; set; }

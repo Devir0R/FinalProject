@@ -22,10 +22,10 @@ namespace webapi.Logic_Layer
             return DA.GetPlayerByID(id);
         }
 
-        public List<Players> Search(string keyword, string club, int ageUp, int ageDown, string nationality)
+        public List<Players> Search(string keyword, string club, int ageUp, int ageDown, string nationality, string position,string league)
         {
 
-            Func<Players, bool> pred = PlayersL.CreatePredicate(keyword, club, ageUp, ageDown, nationality);
+            Func<Players, bool> pred = PlayersL.CreatePredicate(keyword, club, ageUp, ageDown, nationality,position,league);
             return DA.GetPlayersByQuery(pred);
         }
 
